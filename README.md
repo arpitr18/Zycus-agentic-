@@ -4,7 +4,7 @@ An internal decision-support workbench for investigating **existing support tick
 
 **This is not a replacement for Zycus ticketing.** Source CSV/KB records are read-only. Customer responses and internal notes are drafts; the application does not send messages, notify TAMs or simulate an external Zycus integration.
 
-## Project status and evaluation
+## Project status and evaluation (2026-10-27)
 
 | Area | Actual status |
 |---|---|
@@ -241,7 +241,7 @@ FastAPI serves `frontend/dist` when it exists at application startup, including 
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Streamlit and the CLI remain supported. Streamlit loads saved outputs without inference until its execution button is pressed.
+Streamlit and the CLI remain supported. Streamlit loads saved outputs without inference until its execution button is pressed. It is a local-only legacy interface and does not use the React/FastAPI session or RBAC layer.
 
 ## Configuration and storage
 
@@ -267,7 +267,7 @@ The application worker is **single-process/single-worker**, with a bounded pendi
 
 ## APIs
 
-All routes except the minimal health endpoint and documentation require an authenticated session where applicable.
+Login and the minimal health endpoint are public. Other application API routes require an authenticated session; development API documentation is also accessible.
 
 | Area | Main routes |
 |---|---|
@@ -323,19 +323,32 @@ The assignment interfaces are unchanged:
 
 The normal CLI intentionally writes validated results into `outputs/`; **do not execute it while preserving the current submission artifacts**. Snapshot them first when a future authorized evaluation is ready. A failed request does not replace a previous valid JSON file. Daily quota errors stop immediately without waiting or repeated retries, and no fallback decision is synthesized.
 
+## Troubleshooting
+
+| Symptom | Check or action |
+|---|---|
+| Groq daily quota error | Keep the failed run for audit. Browse saved results; do not repeatedly retry or rewrite artifacts. Resume only after quota is available and inference is explicitly authorized. |
+| Frontend cannot load API data | Start FastAPI on port 8000, verify `/api/health`, then check the Vite `/api` proxy. |
+| Demo login fails | Seeding requires development mode, the explicit seed flag and an initially empty user table. Existing users are not reset; use the existing administrator to manage access. |
+| CSRF or origin rejection | Refresh/sign in again and make sure the browser origin is in `APP_ORIGINS`. |
+| Session expires after editing a user | User updates revoke affected sessions. Sign in again with the current credentials. |
+| IDE still shows the old `baseUrl` warning | Confirm `frontend/jsconfig.json` has no `baseUrl`, then restart the IDE TypeScript server or reload the editor. |
+| Built frontend route is unavailable | Build first, then restart FastAPI so it registers `frontend/dist` and SPA routes. |
+| Grounding audit exits with status 1 | Read the two documented historical priority findings in `EVALUATION.md`; schema validity and decision correctness are separate checks. |
+
 ## Repository map
 
 ```text
 api/                         FastAPI routes, auth, DB and background agent adapter
 frontend/src/                React pages, API client and shared UI components
 frontend/e2e/                Browser workflows and quota-error regression
- tam_agent/                  Existing agent, tools, retrieval, loaders and schema
- data/                       Source CSVs, review set and ignored local SQLite DBs
- kb/                         Markdown articles and policies
- outputs/                    Preserved review JSONs and real execution logs
- evaluation/                 Manual policy reference, computed report and preservation hashes
- scripts/                    Dataset, schema, grounding and policy evaluation scripts
- tests/                      Offline Python tests; real Groq construction is forbidden
+tam_agent/                  Existing agent, tools, retrieval, loaders and schema
+data/                       Source CSVs, review set and ignored local SQLite DBs
+kb/                         Markdown articles and policies
+outputs/                    Preserved review JSONs and real execution logs
+evaluation/                 Manual policy reference, computed report and preservation hashes
+scripts/                    Dataset, schema, grounding and policy evaluation scripts
+tests/                      Offline Python tests; real Groq construction is forbidden
 run.py                       Original CLI interface
 app.py                       Retained Streamlit dashboard
 SOLUTION.md                  One-page submission summary

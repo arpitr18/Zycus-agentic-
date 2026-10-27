@@ -112,7 +112,7 @@ Costs remain unavailable without configured price snapshots; provider-reported t
 
 ## Groq quota limitation and preservation
 
-Full-review regeneration was attempted and rejected by Groq's daily token quota. The saved ten artifacts survived those failures; no replacement results were synthesized. After the explicit quota-stop instruction, no further Groq calls were made, no waiting/retry loop was started, and all validation stayed offline.
+Full-review regeneration was attempted and rejected by Groq's daily token quota. The last full batch recorded **0/10 newly generated results**; this must not be confused with the checker's **10/10 valid preserved files**. The saved ten artifacts survived those failures; no replacement results were synthesized. After the explicit quota-stop instruction, no further Groq calls were made, no waiting/retry loop was started, and all validation stayed offline.
 
 Daily TPD/RPD errors now raise a specific non-transient error immediately, with **one request, no sleep and no automatic retry** verified by regression tests. FastAPI persists `failed`, clears the failed run's result, records the error and leaves usage/cost unknown when unreported. React displays failure/retry guidance without a completed recommendation. Retrying is an explicit user action creating a new run.
 
