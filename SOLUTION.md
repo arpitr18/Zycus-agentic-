@@ -8,12 +8,12 @@
 
 **Policies and reliability.** KB rules govern P1-P4 priority, L1/L2/Product/Security routing, escalation, TAM notification, duplicates and clarification. Validation rejects conflicting recommendations and returns feedback to the model. New general guards reject invented urgency from vague calendar wording and enforce the account-risk uplift for observed degradation. Regressions cover both priority issues without ticket-specific production rules. API failures produce failed jobs with no result; daily quotas fail immediately without automatic waiting. Token costs remain unavailable unless verified prices are configured; calculated costs are estimates, not invoices.
 
-**Access and review.** Salted scrypt passwords, hashed opaque session tokens, HttpOnly/SameSite cookies, CSRF checks and backend RBAC protect the application. Support sees assigned accounts; managers review all tickets and analytics; admins manage users, assignments and settings. Reviews and overrides remain separate from immutable AI recommendations. Demo seeding is opt-in for development.
+**Access and review.** Salted scrypt passwords, hashed opaque session tokens, HttpOnly/SameSite cookies, CSRF checks and backend RBAC protect the application. Support sees assigned accounts; managers review all tickets and analytics; admins manage users, assignments and settings. Reviews and overrides remain separate from immutable AI recommendations. Demo seeding is opt-in for development; production rejects demo logins and sessions.
 
 **Measured evaluation of preserved outputs.** No adjudicated labels were supplied: these are policy-based manual agreements, not verified-label accuracy.
 
 - Saved schema validity: **10/10**; source-data integrity checks pass.
-- Offline Python tests: **42/42**; local browser checks: **5/5**.
+- Offline Python tests: **43/43**; local browser checks: **6/6**.
 - Priority: **7/9 (77.78%)**; duplicate priority is unscorable without the original adjudicated value.
 - Routing, escalation and TAM: **10/10 each**. Overall: **37/39 cells (94.87%)**, using correct/evaluated x 100.
 - KB citations: **16/16** exist, were read, are non-deprecated and agree with the manual relevance reference.

@@ -9,8 +9,8 @@ An internal decision-support workbench for investigating **existing support tick
 | Area | Actual status |
 |---|---|
 | Saved assignment outputs | **10/10 schema-valid; preserved unchanged** |
-| Offline Python tests | **42 passed** |
-| Local browser checks without Groq | **5 passed** |
+| Offline Python tests | **43 passed** |
+| Local browser checks without Groq | **6 passed** |
 | React production build | Passed |
 | KB citation audit | **16/16** exist, were read and are non-deprecated; all agree with the manual relevance reference |
 | Priority policy agreement | **7/9 (77.78%)**; one duplicate priority cannot be scored |
@@ -210,7 +210,7 @@ Development demo users are seeded only when the application user table is empty 
 | `manager@demo.local` | `Demo@1234` | TAM/support manager |
 | `admin@demo.local` | `Demo@1234` | Administrator |
 
-These are development credentials, not production accounts. The support demo user is assigned the accounts represented in the review set. If a database already has users, toggling the seed flag does not reset their passwords or recreate them.
+These are development credentials, not production accounts. Production rejects these seeded identities even if their rows or old development sessions remain in the database. The support demo user is assigned the accounts represented in the review set. If a database already has users, toggling the seed flag does not reset their passwords or recreate them.
 
 ### Frontend: terminal 2
 

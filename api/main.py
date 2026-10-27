@@ -21,6 +21,8 @@ from .service import DataStore,Jobs,import_outputs
 from tam_agent.data import AS_OF_DATE
 from tam_agent.schema import PRIORITIES,ROUTES
 
+DEMO_EMAILS = frozenset({'support@demo.local','manager@demo.local','admin@demo.local'})
+
 class Login(BaseModel):
     email:str=Field(min_length=3,max_length=254)
     password:str=Field(min_length=1,max_length=256)
@@ -98,7 +100,7 @@ def create_app(database_url=None,demo=None,agent=None):
         value=request.cookies.get('zycus_session','')
         record=db.get(SessionRecord,token_hash(value)) if value else None
         user=db.get(User,record.user_id) if record and record.expires_at>time.time() else None
-        if not user or not user.active: raise HTTPException(401,'Please sign in')
+        if not user or not user.active or (secure and user.email in DEMO_EMAILS): raise HTTPException(401,'Please sign in')
         if request.method in ('POST','PUT','PATCH','DELETE'):
             if not secrets.compare_digest(request.headers.get('X-CSRF-Token',''),record.csrf): raise HTTPException(403,'Invalid CSRF token')
         request.state.session=record
@@ -140,7 +142,7 @@ def create_app(database_url=None,demo=None,agent=None):
         limiter.check((request.client.host if request.client else 'local',email))
         user=db.scalar(select(User).where(User.email==email))
         valid=verify_password(body.password,user.password_hash if user else dummy)
-        if not user or not valid or not user.active:
+        if not user or not valid or not user.active or (secure and user.email in DEMO_EMAILS):
             audit(db,None,'auth.login_failed',email); db.commit(); raise HTTPException(401,'Invalid email or password')
         token,csrf=secrets.token_urlsafe(32),secrets.token_urlsafe(32)
         db.execute(delete(SessionRecord).where(SessionRecord.expires_at<time.time()))
@@ -270,7 +272,7 @@ def create_app(database_url=None,demo=None,agent=None):
         if duplicate and (not existing or duplicate.id!=existing.id): raise HTTPException(409,'Email already exists')
         if any(aid not in store.accounts for aid in body.account_ids): raise HTTPException(422,'Unknown account assignment')
         if existing and existing.role=='admin' and (not body.active or body.role!='admin'):
-            admins=db.scalar(select(func.count()).select_from(User).where(User.role=='admin',User.active==True))
+            admins=sum(not secure or candidate.email not in DEMO_EMAILS for candidate in db.scalars(select(User).where(User.role=='admin',User.active==True)))
             if admins<=1: raise HTTPException(409,'Cannot disable the last active administrator')
         return email
     @app.post('/api/users',status_code=201)

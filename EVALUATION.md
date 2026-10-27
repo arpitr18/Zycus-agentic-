@@ -14,9 +14,9 @@ The implementation author assessed the source tickets, account/usage records and
 |---|---|---|
 | `python scripts/validate_data.py` | All integrity rules passed | CSV foreign keys and KB links are valid |
 | `python scripts/check_outputs.py` | **10/10 schema-valid** | Structural validity does not imply decision correctness |
-| `pytest -q` | **42 passed, 0 failed** | Includes agent, policy, retry/quota, auth/RBAC, persistence and Streamlit tests |
+| `pytest -q` | **43 passed, 0 failed** | Includes agent, policy, retry/quota, auth/RBAC, persistence and Streamlit tests |
 | React production build | Passed | Vite build completed; route-level bundles are split |
-| Browser tests excluding live Groq | **5 passed, 0 failed** | Startup/login, ticket/evidence display, reviews, role restrictions, admin, mobile and quota-error UI |
+| Browser tests excluding live Groq | **6 passed, 0 failed** | Startup/login, ticket/evidence display, reviews, role restrictions, admin, mobile and quota-error UI |
 | Current grounding/policy audit | **2 findings; exit status 1** | The two preserved priority mismatches below are intentionally reported, not hidden |
 | Preserved review files | SHA-256 manifest recorded | `evaluation/preserved_output_hashes.json` is checked against all ten files |
 
@@ -104,11 +104,17 @@ No invalid cited KB ID, incorrect resolved account ID or invented duplicate ID w
 
 ## React/FastAPI integration evidence
 
-Five local browser checks passed, covering manager search/evidence/review/analytics, support API/navigation restrictions, admin user/assignment/audit/settings workflow, mobile KB navigation, and a recorded quota failure with no completed recommendation. Saved investigations load without calling Groq.
+Six local browser checks passed, covering manager search/evidence/review/analytics, support API/navigation restrictions, admin user/assignment/audit/settings workflow, mobile KB navigation, a recorded quota failure with no completed recommendation, and continuous KB typing/article-to-list navigation. Saved investigations load without calling Groq.
 
 **An earlier real live smoke passed before the quota stop:** login -> existing TKT-128253 -> Run AI Investigation -> FastAPI -> native Groq agent -> persisted validated result -> human approval. The isolated validation database records run `7d2b3e66-aad9-4b62-9d67-ee4916f0569c`, model `openai/gpt-oss-120b`, status `succeeded`, **57.632 seconds**, **14,032 reported input tokens**, **1,560 output tokens**, and review state `approved`. Browser execution was reported as one passed test in approximately 1.1 minutes. This is historical evidence, not a claim that live inference is currently available or that it validates post-fix priority behavior.
 
 Costs remain unavailable without configured price snapshots; provider-reported token counts are not invented invoice totals. Isolated validation DB files and browser traces are ignored by Git.
+
+## Offline stabilization follow-up
+
+- Fixed KB search input unmounting during result refresh. Retained list data is now shape-checked, so opening an article directly and returning to search also works safely. The browser regression checks both navigation and keyboard focus.
+- Production authentication now rejects seeded demo identities and their previously issued development sessions. Last-active-admin protection excludes demo identities in production. A regression verifies both rejected password login and rejected session reuse.
+- Restored ignored local dependencies to run verification. The complete Python suite passed **43/43**, the non-inference browser suite passed **6/6**, the final KB navigation regression was rerun successfully, and the final React production build passed. No Groq calls or saved-output edits were performed.
 
 ## Groq quota limitation and preservation
 

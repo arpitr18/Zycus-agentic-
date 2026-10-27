@@ -133,3 +133,16 @@ def test_quota_failure_never_becomes_completed_or_invents_metrics(client):
     assert run['result'] is None and run['decision'] is None
     assert run['input_tokens'] is None and run['estimated_cost_usd'] is None
     assert 'daily quota exhausted' in run['error']
+
+
+def test_production_rejects_seeded_demo_passwords_and_existing_sessions(client,monkeypatch):
+    login(client,'admin')
+    development_cookie=client.cookies.get('zycus_session')
+    url=str(client.app.state.factory.kw['bind'].url)
+    monkeypatch.setenv('APP_ENV','production')
+    production=create_app(url,demo=False,agent=test_agent)
+    with TestClient(production) as prod:
+        response=prod.post('/api/auth/login',json={'email':'admin@demo.local','password':'Demo@1234'})
+        assert response.status_code==401
+        prod.cookies.set('zycus_session',development_cookie)
+        assert prod.get('/api/auth/me').status_code==401

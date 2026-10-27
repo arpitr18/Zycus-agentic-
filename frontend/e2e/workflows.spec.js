@@ -10,3 +10,14 @@ test('admin can create an assigned support user and inspect audit settings',asyn
 test('mobile navigation and knowledge search work',async({page})=>{await page.setViewportSize({width:390,height:844});await login(page);await page.getByRole('button',{name:'Open navigation'}).click();await page.getByRole('link',{name:'Knowledge base',exact:true}).click();await page.getByLabel('Search knowledge').fill('E-3310');await expect(page.getByRole('link').filter({hasText:'E-3310: Bid submission is rejected'})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();await page.screenshot({path:'test-results/mobile-knowledge.png',fullPage:true,animations:'disabled'})});
 
 test('LIVE Groq investigation completes and can be reviewed',async({page})=>{test.skip(process.env.LIVE_AI!=='1','Opt-in because this consumes real Groq quota');test.setTimeout(600000);await login(page);await page.goto('/tickets/TKT-128253');await page.getByRole('button',{name:'Run AI investigation'}).click();await page.waitForURL(/investigations\//);const id=page.url().split('/').pop();let run;for(let i=0;i<100;i++){const response=await page.request.get('/api/investigations/'+id);run=await response.json();if(run.status==='failed')throw new Error(run.error);if(run.status==='succeeded')break;await page.waitForTimeout(5000)}expect(run.status).toBe('succeeded');expect(run.input_tokens).toBeGreaterThan(0);expect(run.result.ticket_id).toBe('TKT-128253');await page.reload();await expect(page.getByRole('heading',{name:'AI recommendation'})).toBeVisible();await page.getByRole('button',{name:/Tool trace/}).click();expect(await page.locator('.trace').count()).toBeGreaterThan(0);await page.getByLabel('Review note').fill('Live Groq workflow validated against actual source evidence.');await page.getByRole('button',{name:'Save review'}).click();await expect(page.getByText('Review saved.',{exact:true})).toBeVisible()});
+
+
+test('knowledge search keeps the input mounted while results refresh',async({page})=>{
+ await login(page);await page.goto('/kb/KB-4795');
+ await expect(page.getByRole('heading',{name:'E-3310: Bid submission is rejected',exact:true}).first()).toBeVisible();
+ await page.getByRole('main').getByRole('link',{name:'Knowledge base',exact:true}).click();
+ const input=page.getByLabel('Search knowledge');await input.focus();
+ await input.pressSequentially('E-3310',{delay:350});
+ await expect(input).toHaveValue('E-3310');await expect(input).toBeFocused();
+ await expect(page.getByRole('link').filter({hasText:'E-3310: Bid submission is rejected'})).toBeVisible();
+});
