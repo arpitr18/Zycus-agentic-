@@ -1,0 +1,16 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+
+.pytest_cache/
+*.tmp
+.streamlit/secrets.toml
+
+node_modules/
+frontend/dist/
+data/*.db*
+playwright-report/
+test-results/
+frontend/node_modules/
+frontend/dist/

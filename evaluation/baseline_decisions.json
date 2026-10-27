@@ -1,0 +1,72 @@
+[
+  {
+    "ticket_id": "TKT-144939",
+    "priority": "P1",
+    "route_to": "L2_engineering",
+    "escalate": true,
+    "notify_tam": true
+  },
+  {
+    "ticket_id": "TKT-119877",
+    "priority": "P3",
+    "route_to": "L1_support",
+    "escalate": true,
+    "notify_tam": true
+  },
+  {
+    "ticket_id": "TKT-160477",
+    "priority": "P3",
+    "route_to": "L1_support",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-192732",
+    "priority": "P3",
+    "route_to": "L1_support",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-169327",
+    "priority": "P3",
+    "route_to": "L1_support",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-160067",
+    "priority": "P2",
+    "route_to": "product",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-160094",
+    "priority": "P2",
+    "route_to": "L2_engineering",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-128253",
+    "priority": "P3",
+    "route_to": "L1_support",
+    "escalate": false,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-135081",
+    "priority": "P1",
+    "route_to": "security",
+    "escalate": true,
+    "notify_tam": false
+  },
+  {
+    "ticket_id": "TKT-158764",
+    "priority": "P4",
+    "route_to": "L1_support",
+    "escalate": false,
+    "notify_tam": false
+  }
+]

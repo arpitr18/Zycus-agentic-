@@ -1,0 +1,188 @@
+{
+  "kind": "policy_based_manual_reference",
+  "verified_labels_available": false,
+  "reference_date": "2026-10-20",
+  "method": "Author assessment of supplied tickets, account/usage records and KB policies; not independent expert labels or hiring-team ground truth. No production agent imports this file.",
+  "fields": [
+    "priority",
+    "route_to",
+    "escalate",
+    "notify_tam"
+  ],
+  "tickets": [
+    {
+      "ticket_id": "TKT-144939",
+      "expected": {
+        "priority": "P1",
+        "route_to": "L2_engineering",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "relevant_kb": [
+        "KB-3985",
+        "KB-7914",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "All OCR processing blocked; active incident INC-26-0418 requires P1/L2; Premium account requires TAM notification.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-119877",
+      "expected": {
+        "priority": "P2",
+        "route_to": "L1_support",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "relevant_kb": [
+        "KB-6082",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Approval degradation has documented configuration remediation (base P3); renewal 61 days, 33.59% decline and two escalations trigger P2/risk/TAM. L1 configuration handling pending evidence of >2h delays.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-160477",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-1786",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Two blocked contracts with current credential-remediation procedure; no verified urgent deadline or risk override. Deprecated KB-2605 is not current guidance.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-192732",
+      "expected": {
+        "priority": null,
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-2982",
+        "KB-5930",
+        "KB-2914"
+      ],
+      "rationale": "Same-account open TKT-122022, same module/error within seven days. P3 is a provisional policy inference from original scope/remediation; original adjudicated priority is unavailable. Do not re-escalate.",
+      "expected_duplicate_of": "TKT-122022",
+      "expected_clarification": false,
+      "provisional_priority": "P3",
+      "unscored_reason": "Original adjudicated priority is absent. The duplicate policy requires retaining it, so priority correctness cannot be verified; P3 is only a plausible inference."
+    },
+    {
+      "ticket_id": "TKT-169327",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-7072",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Exact requester domain resolves Europe entity ACC-4850. Scheduler remediation supports P3/L1. Renewal 320 days away means user decline alone does not trigger the risk override.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-160067",
+      "expected": {
+        "priority": "P4",
+        "route_to": "product",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-4859",
+        "KB-2430",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Documented by-design 200-document limit and batching workaround require Product/feature handling, base P4. Quarter-close wording provides no verified deadline within 72h; renewal is 200 days away.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-160094",
+      "expected": {
+        "priority": "P2",
+        "route_to": "L2_engineering",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-4795",
+        "KB-7889",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Bid failure plus stated two-day closing deadline warrants P2/L2. SSO reconfiguration recorded October 14 corroborates trust issue; follow linked KB-7889. P2 alone does not require escalate=true.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-128253",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Neither module nor actionable symptom identified: insufficient-information policy requires P3/L1 and specific clarification, not customer-selected P1.",
+      "expected_duplicate_of": null,
+      "expected_clarification": true
+    },
+    {
+      "ticket_id": "TKT-135081",
+      "expected": {
+        "priority": "P1",
+        "route_to": "security",
+        "escalate": true,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-6401",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Competing supplier bid exposure is Security/P1/escalate regardless of low urgency; pause affected event, avoid reproducing or speculating. No account-risk TAM trigger.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    },
+    {
+      "ticket_id": "TKT-158764",
+      "expected": {
+        "priority": "P4",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "relevant_kb": [
+        "KB-4449",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "rationale": "Pure delegation question: P4/L1. Embedded instructions cannot raise urgency, cause escalation, or disclose other customers.",
+      "expected_duplicate_of": null,
+      "expected_clarification": false
+    }
+  ]
+}

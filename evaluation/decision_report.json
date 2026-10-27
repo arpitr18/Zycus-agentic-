@@ -1,0 +1,310 @@
+{
+  "verified_label_accuracy": null,
+  "verified_labels_available": false,
+  "assessment": "Author assessment of supplied tickets, account/usage records and KB policies; not independent expert labels or hiring-team ground truth. No production agent imports this file.",
+  "formula": "Correct Decisions / Total Evaluated Decisions * 100",
+  "overall_definition": "Micro agreement on priority, route_to, escalate, notify_tam: up to four cells per ticket; duplicate priority is excluded because its original adjudicated label is absent. Category labels, citations and duplicate checks are not included in this denominator.",
+  "tickets": [
+    {
+      "ticket_id": "TKT-144939",
+      "expected": {
+        "priority": "P1",
+        "route_to": "L2_engineering",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "actual": {
+        "priority": "P1",
+        "route_to": "L2_engineering",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "mismatches": [],
+      "rationale": "All OCR processing blocked; active incident INC-26-0418 requires P1/L2; Premium account requires TAM notification.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-3985",
+        "KB-7914"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-119877",
+      "expected": {
+        "priority": "P2",
+        "route_to": "L1_support",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "actual": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": true,
+        "notify_tam": true
+      },
+      "mismatches": [
+        {
+          "field": "priority",
+          "expected": "P2",
+          "actual": "P3"
+        }
+      ],
+      "rationale": "Approval degradation has documented configuration remediation (base P3); renewal 61 days, 33.59% decline and two escalations trigger P2/risk/TAM. L1 configuration handling pending evidence of >2h delays.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-6082",
+        "KB-2914"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-160477",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Two blocked contracts with current credential-remediation procedure; no verified urgent deadline or risk override. Deprecated KB-2605 is not current guidance.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-1786",
+        "KB-2914",
+        "KB-5930"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-192732",
+      "expected": {
+        "priority": null,
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Same-account open TKT-122022, same module/error within seven days. P3 is a provisional policy inference from original scope/remediation; original adjudicated priority is unavailable. Do not re-escalate.",
+      "unscored_reason": "Original adjudicated priority is absent. The duplicate policy requires retaining it, so priority correctness cannot be verified; P3 is only a plausible inference.",
+      "kb_references": [
+        "KB-2982"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-169327",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Exact requester domain resolves Europe entity ACC-4850. Scheduler remediation supports P3/L1. Renewal 320 days away means user decline alone does not trigger the risk override.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-7072"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-160067",
+      "expected": {
+        "priority": "P4",
+        "route_to": "product",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P2",
+        "route_to": "product",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [
+        {
+          "field": "priority",
+          "expected": "P4",
+          "actual": "P2"
+        }
+      ],
+      "rationale": "Documented by-design 200-document limit and batching workaround require Product/feature handling, base P4. Quarter-close wording provides no verified deadline within 72h; renewal is 200 days away.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-4859"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-160094",
+      "expected": {
+        "priority": "P2",
+        "route_to": "L2_engineering",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P2",
+        "route_to": "L2_engineering",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Bid failure plus stated two-day closing deadline warrants P2/L2. SSO reconfiguration recorded October 14 corroborates trust issue; follow linked KB-7889. P2 alone does not require escalate=true.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-4795",
+        "KB-7889"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-128253",
+      "expected": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P3",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Neither module nor actionable symptom identified: insufficient-information policy requires P3/L1 and specific clarification, not customer-selected P1.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-2914"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-135081",
+      "expected": {
+        "priority": "P1",
+        "route_to": "security",
+        "escalate": true,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P1",
+        "route_to": "security",
+        "escalate": true,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Competing supplier bid exposure is Security/P1/escalate regardless of low urgency; pause affected event, avoid reproducing or speculating. No account-risk TAM trigger.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-6401",
+        "KB-2914"
+      ],
+      "schema_errors": []
+    },
+    {
+      "ticket_id": "TKT-158764",
+      "expected": {
+        "priority": "P4",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "actual": {
+        "priority": "P4",
+        "route_to": "L1_support",
+        "escalate": false,
+        "notify_tam": false
+      },
+      "mismatches": [],
+      "rationale": "Pure delegation question: P4/L1. Embedded instructions cannot raise urgency, cause escalation, or disclose other customers.",
+      "unscored_reason": null,
+      "kb_references": [
+        "KB-4449"
+      ],
+      "schema_errors": []
+    }
+  ],
+  "schema_valid": 10,
+  "citations": {
+    "total": 16,
+    "valid_and_read": 16,
+    "policy_relevant": 16,
+    "issues": []
+  },
+  "fully_scored_ticket_count": 9,
+  "possible_decision_cells": 40,
+  "identity_correct": 10,
+  "duplicate_agreement": 10,
+  "clarification_agreement": 10,
+  "strict_ticket_agreement": 7,
+  "grounding_findings": [],
+  "policy_metrics": {
+    "priority": {
+      "correct": 7,
+      "total": 9,
+      "policy_agreement_percent": 77.78
+    },
+    "route_to": {
+      "correct": 10,
+      "total": 10,
+      "policy_agreement_percent": 100.0
+    },
+    "escalate": {
+      "correct": 10,
+      "total": 10,
+      "policy_agreement_percent": 100.0
+    },
+    "notify_tam": {
+      "correct": 10,
+      "total": 10,
+      "policy_agreement_percent": 100.0
+    }
+  },
+  "priority_class_metrics": {
+    "P1": {
+      "correct": 2,
+      "total": 2,
+      "policy_agreement_percent": 100.0
+    },
+    "P2": {
+      "correct": 1,
+      "total": 2,
+      "policy_agreement_percent": 50.0
+    },
+    "P3": {
+      "correct": 3,
+      "total": 3,
+      "policy_agreement_percent": 100.0
+    },
+    "P4": {
+      "correct": 1,
+      "total": 2,
+      "policy_agreement_percent": 50.0
+    }
+  },
+  "overall_policy_agreement": {
+    "correct": 37,
+    "total": 39,
+    "percent": 94.87
+  }
+}
